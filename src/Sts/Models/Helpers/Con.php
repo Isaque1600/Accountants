@@ -15,18 +15,14 @@ class Con
     private object $connect;
 
 
-    public function __construct(
-        string $dbPort = $_ENV['DB_PORT'],
-        string $dbHost = $_ENV['DB_HOST'],
-        string $dbName = $_ENV['DB_DATABASE'],
-        string $dbUser = $_ENV['DB_USERNAME'],
-        string $dbPasswd = $_ENV['DB_PASSWORD']
-    ) {
-        $this->dbPort = $dbPort;
-        $this->dbHost = $dbHost;
-        $this->dbName = $dbName;
-        $this->dbUser = $dbUser;
-        $this->dbPasswd = $dbPasswd;
+    public function __construct()
+    {
+        $this->dbPort = $_ENV['DB_PORT'];
+        $this->dbHost = $_ENV['DB_HOST'];
+        $this->dbName = $_ENV['DB_DATABASE'];
+        $this->dbUser = $_ENV['DB_USERNAME'];
+        $this->dbPasswd = $_ENV['DB_PASSWORD'];
+
 
         $this->checkConnection();
         $this->configConnection();

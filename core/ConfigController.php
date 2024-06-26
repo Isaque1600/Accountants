@@ -16,12 +16,12 @@ class ConfigController extends Config
 
         Config::__construct();
 
-        if (!empty (filter_input(INPUT_GET, "url", FILTER_SANITIZE_URL))) {
+        if (!empty(filter_input(INPUT_GET, "url", FILTER_SANITIZE_URL))) {
             $this->url = explode("/", filter_input(INPUT_GET, "url", FILTER_SANITIZE_URL));
 
-            if (isset ($this->url[0]) && isset ($this->url[1])) {
+            if (isset($this->url[0]) && isset($this->url[1])) {
                 $this->urlController = $this->url[0];
-                $this->urlMethod = (!empty ($this->url[1])) ? $this->url[1] : "index";
+                $this->urlMethod = (!empty($this->url[1])) ? $this->url[1] : "index";
                 $this->urlParameters = filter_input_array(INPUT_GET, FILTER_SANITIZE_URL);
                 // var_dump($this->url);
             } else {
