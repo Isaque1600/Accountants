@@ -1,0 +1,617 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;600;700&family=Ubuntu+Mono:wght@400;700&display=swap");
+@import url(colors.css);
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Inter", sans-serif;
+}
+
+html {
+  height: 100%;
+}
+
+body {
+  background-color: var(--background-main);
+  height: 100%;
+}
+
+.wrapper {
+  display: flex;
+  height: 100%;
+}
+
+nav {
+  height: 100%;
+  width: 15%;
+  background-color: var(--background-sidebar);
+}
+
+nav > .logo {
+  background-color: #030303;
+  padding: 15px;
+  border-bottom: 0.5px rgba(255, 255, 255, 0.15) solid;
+}
+
+.logo > img {
+  width: 100%;
+}
+
+nav > .list {
+  /* padding: 15px; */
+  border-bottom: 0.5px rgba(255, 255, 255, 0.15) solid;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  padding: 5px 0;
+}
+
+nav > .list > h1 {
+  padding: 0 15px;
+  margin-bottom: 10px;
+  color: red;
+  font-family: monospace;
+  font-weight: 500;
+}
+
+nav a {
+  font-family: "Ubuntu Mono", monospace;
+  font-size: 18px;
+}
+
+nav > .list > a {
+  padding: 10px 15px;
+  width: 100%;
+  display: flex;
+  color: #fff;
+  text-decoration: none;
+  align-items: center;
+  gap: 5px;
+}
+
+nav > .list > a:nth-child(n):hover {
+  background-color: #101010bc;
+}
+
+nav > .list > a > svg {
+  color: red;
+}
+
+nav > .logout-btn {
+  margin: 5px 0;
+  padding: 15px;
+  text-decoration: none;
+  color: #fff;
+  display: flex;
+  gap: 5px;
+  align-items: center;
+  font-family: "Ubuntu Mono", monospace;
+}
+
+nav > .logout-btn:hover {
+  background-color: #101010bc;
+}
+
+.content-wrapper {
+  width: 85%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 10px;
+}
+.content-wrapper > header {
+  background-color: var(--background-header);
+  width: 100%;
+  min-height: 60px;
+  padding: 10px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 10px;
+  box-shadow: 0px 2px 7px 0px rgba(0, 0, 0, 0.265);
+  gap: 10px;
+}
+
+header > .page-name {
+  padding: 0 15px;
+  font-size: 1.15em;
+  width: 100%;
+}
+
+.content-wrapper > header > .form {
+  display: flex;
+  width: 100%;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 10px;
+}
+
+header > .form > .datepicker > .date {
+  min-width: 200px;
+  max-width: 500px;
+  height: 50px;
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid #000;
+  padding: 10px;
+  font-size: 1.15rem;
+  outline: none;
+}
+
+header > .form > .custom-select {
+  height: 50px;
+  font-size: 1.15rem;
+  color: #000;
+  position: relative;
+  z-index: 1;
+}
+
+header > .form > .monthpicker {
+  width: 180px;
+}
+
+header > .form > .yearpicker {
+  width: 110px;
+}
+
+header > .form > .namepicker {
+  min-width: 400px;
+  max-width: 500px;
+}
+
+header > .form > .custom-select > .select-btn {
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  padding: 0.675em 1em;
+  border: none;
+  border-bottom: 2px solid black;
+  cursor: pointer;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+header > .form > .custom-select > .select-btn > .selected-value {
+  background: none;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  user-select: none;
+  font-size: 1.15rem;
+  text-align: left;
+  width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+header > .form > .custom-select > .select-btn > .select-arrow {
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 6px solid #000;
+  transition: transform ease-in-out 0.2s;
+}
+
+header > .form > .custom-select.active > .select-btn > .select-arrow {
+  transform: rotate(180deg);
+}
+
+header > .form > .custom-select > .select-dropdown {
+  position: absolute;
+  list-style: none;
+  width: 100%;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  background-color: #fff;
+  border: 1px solid #caced1;
+  border-radius: 5px;
+  padding: 10px;
+  margin-top: 10px;
+  max-height: 200px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  transition: 0.2s ease-in-out;
+  transform: translateY(0);
+  opacity: 0;
+  visibility: hidden;
+  z-index: -1;
+}
+
+header > .form > .custom-select.active > .select-dropdown {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(1);
+  z-index: 2;
+}
+
+header > .form > .custom-select > .select-dropdown > li {
+  position: relative;
+  cursor: pointer;
+}
+
+header > .form > .custom-select > .select-dropdown > li > .option {
+  width: 100%;
+  padding: 8px 15px;
+  cursor: pointer;
+  border-radius: 50px;
+}
+
+header > .form > .custom-select > .select-dropdown > li > .option:hover {
+  background-color: #ebebeb94;
+}
+
+header > .form > .custom-select > .select-dropdown:focus-within {
+  box-shadow: 0 10px 25px rgba(94, 108, 233, 0.6);
+}
+
+header > .form > .custom-select > .select-dropdown::-webkit-scrollbar {
+  width: 7px;
+}
+
+header > .form > .custom-select > .select-dropdown::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 25px;
+}
+
+header > .form > .custom-select > .select-dropdown::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 25px;
+}
+
+.content-wrapper > main {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  max-height: 100%;
+  background-color: var(--background-header);
+  border-radius: 15px;
+  box-shadow: 0px 2px 7px 0px rgba(0, 0, 0, 0.265);
+  overflow: hidden;
+  font-size: 1.15em;
+}
+
+main > .top,
+.top > .info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+main > .top {
+  padding: 15px;
+  padding-top: 16px;
+  border-bottom: 0.5px rgba(0, 0, 0, 0.15) solid;
+  height: 60px;
+}
+
+.top > .options {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+  padding-left: 10px;
+}
+
+.top > .options > .download-btn {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+  font-size: 1em;
+  font-family: "Ubuntu Mono", monospace;
+  padding: 5px;
+  border-radius: 10px;
+  visibility: hidden;
+}
+
+.top > .options > :nth-child(n):hover {
+  background-color: #f0f0f0;
+}
+
+.content-wrapper > label {
+  width: 15px;
+  height: 15px;
+  background: rgba(69, 69, 69, 0.616) solid;
+}
+
+.top > .options > button {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.top > .info {
+  gap: 10px;
+}
+
+main > .content {
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  height: 100%;
+  overflow: hidden;
+}
+
+main > .content > .head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  border-bottom: 1px rgba(0, 0, 0, 0.5) solid;
+  height: 50px;
+  border-bottom: 2px rgba(0, 0, 0, 0.492) solid;
+  border-top: 2px rgba(0, 0, 0, 0.492) solid;
+}
+
+main > .content > .head > .download-select {
+  width: 5%;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+main > .content > .head > .download-select > .form-checkbox > .disable {
+  visibility: hidden;
+  opacity: 0;
+  transform: scaleY(0);
+}
+
+.head
+  > .download-select
+  > .form-checkbox
+  + .head
+  > .download-select
+  > .form-checkbox {
+  margin-top: 1em;
+}
+
+.head > .download-select > .form-checkbox > input[type="checkbox"] {
+  -webkit-appearance: none;
+  appearance: none;
+  background-color: transparent;
+  margin: 0;
+  padding: 0;
+  width: 1.15em;
+  height: 1.15em;
+  color: currentColor;
+  border: 0.1em #000 solid;
+  border-radius: 1em;
+  transform: translateY(-0.075em);
+  display: grid;
+  place-content: center;
+}
+
+.head > .download-select > .form-checkbox > input[type="checkbox"]::before {
+  content: "";
+  width: 0.65em;
+  height: 0.65em;
+  transform: scale(0);
+  transition: 10ms ease-in-out;
+  box-shadow: inset 0.5em 0.5em red;
+  transform-origin: center;
+  clip-path: polygon(10% 66%, 16% 50%, 46% 64%, 87% 18%, 100% 35%, 49% 86%);
+  /* clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%); */
+}
+
+.head
+  > .download-select
+  > .form-checkbox
+  > input[type="checkbox"]:checked::before {
+  transform: scale(1);
+}
+
+main > .content > .head > .name {
+  width: 65%;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding-left: 10px;
+  border-radius: 0px;
+}
+
+main > .content > .head a {
+  width: 15%;
+  height: 30px;
+  padding-left: 15px;
+  padding-right: 15px;
+  display: flex;
+  justify-content: center;
+  color: var(--text-color);
+  text-decoration: none;
+  align-items: center;
+  border: none;
+  background-color: transparent;
+  font-size: 1em;
+  cursor: pointer;
+  text-align: center;
+}
+
+main > .content > .head > a {
+  border-left: 2px rgba(0, 0, 0, 0.492) solid;
+}
+
+main > .content > .head p {
+  width: 100%;
+}
+
+main > .content > .head > p:nth-last-child(1) {
+  border-right: 2px rgba(0, 0, 0, 0.492) solid;
+}
+
+main > .content > .body {
+  width: 100%;
+  height: 100%;
+  max-height: 100%;
+  overflow: scroll;
+  overflow-x: hidden;
+  scrollbar-color: red;
+  scrollbar-width: thin;
+}
+
+main > .content > .body::-webkit-scrollbar {
+  cursor: pointer;
+  width: 5px;
+}
+
+main > .content > .body::-webkit-scrollbar-track {
+  cursor: pointer;
+  background-color: transparent;
+  border: transparent;
+}
+
+main > .content > .body::-webkit-scrollbar-thumb {
+  border-radius: 100vw;
+  background-color: rgba(68, 68, 68, 0.5);
+}
+
+main > .content > .body > .row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: calc(100% + 5px);
+  height: 40px;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  border-bottom: 1px rgba(0, 0, 0, 0.5) solid;
+}
+
+main > .content > .body > .row:hover {
+  background-color: #f1f1f157;
+}
+
+main > .content > .body > .row:nth-last-child(1) {
+  border-bottom: 0;
+}
+
+main > .content > .body > .row > .download-select {
+  width: 5%;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-right: 1px rgba(0, 0, 0, 0.5) solid;
+  border-left: 2px solid transparent;
+}
+
+.body
+  > .row
+  > .download-select
+  > .form-checkbox
+  + .body
+  > .row
+  > .download-select
+  > .form-checkbox {
+  margin-top: 1em;
+}
+
+.body > .row > .download-select > .form-checkbox > input[type="checkbox"] {
+  -webkit-appearance: none;
+  appearance: none;
+  background-color: transparent;
+  margin: 0;
+  padding: 0;
+  width: 1.15em;
+  height: 1.15em;
+  color: currentColor;
+  border: 0.1em #000 solid;
+  border-radius: 1em;
+  transform: translateY(-0.075em);
+  display: grid;
+  place-content: center;
+}
+
+.body
+  > .row
+  > .download-select
+  > .form-checkbox
+  > input[type="checkbox"]::before {
+  content: "";
+  width: 0.65em;
+  height: 0.65em;
+  transform: scale(0);
+  transition: 10ms ease-in-out;
+  box-shadow: inset 0.5em 0.5em red;
+  transform-origin: center;
+  clip-path: polygon(10% 66%, 16% 50%, 46% 64%, 87% 18%, 100% 35%, 49% 86%);
+  /* clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%); */
+}
+
+.body
+  > .row
+  > .download-select
+  > .form-checkbox
+  > input[type="checkbox"]:checked::before {
+  transform: scale(1);
+}
+
+main > .content > .body > .row > .name {
+  width: 65%;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding-left: 10px;
+  border-radius: 0px;
+  border-left: 2px solid transparent;
+}
+
+main > .content > .body > .row > .name > a {
+  width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+main > .content > .body > .row > p {
+  width: 15%;
+  height: 30px;
+  padding-left: 15px;
+  padding-right: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-left: 2px solid transparent;
+  font-size: 0.9em;
+}
+
+main > .content > .body > .empty {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+}
+
+main > .content > .body > .empty > svg {
+  width: 150px;
+  height: auto;
+  color: red;
+}
+
+main > .content > .body > .empty > p {
+  font-size: 1.5em;
+  color: red;
+}
+
+/* Media queries */
+
+@media (max-width: 1024px) {
+  .content-wrapper > header {
+    flex-wrap: wrap;
+  }
+
+  header > .form {
+    flex-wrap: wrap;
+  }
+}

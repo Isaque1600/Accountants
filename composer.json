@@ -1,0 +1,20 @@
+{
+  "name": "vendor/cliente",
+  "type": "project",
+  "autoload": {
+    "psr-4": {
+      "Vendor\\Cliente\\": "src/",
+      "Core\\": "core/",
+      "Sts\\": "src/Sts/"
+    }
+  },
+  "authors": [
+    {
+      "name": "Isaque",
+      "email": "isaquebatista25@gmail.com"
+    }
+  ],
+  "require": {
+    "symfony/dotenv": "^5.4"
+  }
+}

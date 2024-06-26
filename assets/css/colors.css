@@ -1,0 +1,9 @@
+/* Default Colors */
+
+:root {
+  --background-main: #fefefe;
+  --background-header: #fefefe;
+  --background-sidebar: #030303;
+  /* --background-sidebar: #ededed;
+  --background-header: #ebeaea; */
+}
