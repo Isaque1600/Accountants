@@ -1,6 +1,6 @@
 $(document).ready(function () {
   // const BASEURL = "www.suportevt.com/cliente/";
-  const BASEURL = "http://localhost/Projects-7.4/Site/cliente/";
+  const BASEURL = "http://localhost/php7.4/Projects-7.4/Site/cliente/";
 
   $.fn.getFiles = function () {
     var files = [];
@@ -51,30 +51,28 @@ $(document).ready(function () {
       type: "post",
       url: BASEURL + "Home/zipFiles",
       data: {
+        download: false,
+        filename: filename,
+      },
+      dataType: "html",
+      success: function (response) {},
+    });
+
+    $.ajax({
+      type: "post",
+      url: BASEURL + "Home/zipFiles",
+      data: {
         download: true,
         files: data,
         filename: filename,
       },
       dataType: "html",
       success: function (response) {
-        console.log(response);
         var link = $("<a>", { href: response, download: "" })
           .hide()
           .appendTo("body");
         link[0].click();
         link.remove();
-        $.ajax({
-          type: "post",
-          url: BASEURL + "Home/zipFiles",
-          data: {
-            download: false,
-            filename: filename,
-          },
-          dataType: "html",
-          success: function (response) {
-            // console.log(response);
-          },
-        });
       },
     });
   });

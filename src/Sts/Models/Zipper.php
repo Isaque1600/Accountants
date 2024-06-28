@@ -21,11 +21,15 @@ class Zipper
         $this->files = $files;
         $this->formatPath();
         $this->zipname = $zipname;
+
+        if (!file_exists(ARCHIVES_PATH . "/temp/")) {
+            mkdir(ARCHIVES_PATH . "/temp", 0777, true);
+        }
+
         $zipPath = ARCHIVES_PATH . "/temp/" . $this->zipname . ".zip";
 
-        $zip = new ZipArchive;
+        $zip = new ZipArchive();
         if ($zip->open($zipPath, ZipArchive::CREATE)) {
-
             foreach ($this->files as $key => $value) {
                 $i = 1;
                 $filename = basename(ARCHIVES_PATH . $value);

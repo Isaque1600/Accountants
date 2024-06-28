@@ -54,7 +54,7 @@ class Home
             $names[] = $value['RAZAO'];
         }
 
-        $dir = new FileSystem((isset($this->data['selected'])) ? $this->data['selected'] : "Todos", trim($this->data['date']['month']), trim($this->data['date']['year']), $names);
+        $dir = new FileSystem((isset($this->data['selected'])) ? $this->data['selected'] : "Todos", trim($this->data['date']['month']), trim($this->data['date']['year']), isset($names) ? $names : []);
         $this->data['files'] = $dir->getFiles();
 
         switch ($this->data['sort']) {
@@ -129,7 +129,7 @@ class Home
             $names[] = $value['RAZAO'];
         }
 
-        $dir = new FileSystem((isset($this->data['selected'])) ? $this->data['selected'] : "Todos", trim($this->data['date']['month']), trim($this->data['date']['year']), $names, 'SPED');
+        $dir = new FileSystem((isset($this->data['selected'])) ? $this->data['selected'] : "Todos", trim($this->data['date']['month']), trim($this->data['date']['year']), isset($names) ? $names : [], 'SPED');
         $this->data['files'] = $dir->getFiles();
 
         switch ($this->data['sort']) {
@@ -176,8 +176,10 @@ class Home
             $this->data['err'] = $err;
         }
 
-        foreach ($this->data['names'] as $key => $value) {
-            $names[] = $value['RAZAO'];
+        if ($this->data['names'] != null) {
+            foreach ($this->data['names'] as $key => $value) {
+                $names[] = $value['RAZAO'];
+            }
         }
 
         $dataForm = filter_input_array(INPUT_GET, FILTER_DEFAULT);
@@ -191,8 +193,11 @@ class Home
             $this->data['order'] = 'ASC';
         }
 
-        $dir = new FileSystem("", "", "", $names);
-        $this->data['files'] = $dir->certificates();
+        $dir = new FileSystem("", "", "", isset($names) ? $names : []);
+
+        if (isset($names)) {
+            $this->data['files'] = $dir->certificates();
+        }
 
         switch ($this->data['sort']) {
             case 'filename':

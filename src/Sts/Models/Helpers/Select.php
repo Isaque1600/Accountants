@@ -17,12 +17,15 @@ class Select
 
         try {
 
-            $query = $this->connect->prepare("SELECT RAZAO FROM PESSOAS WHERE CONTADOR = :name AND SITUACAO = 'SIM' AND SPED = 'SIM' ORDER BY RAZAO");
+            $query = $this->connect->prepare("SELECT RAZAO FROM PESSOAS WHERE CONTADOR = :name AND (SITUACAO = 'SIM' OR SITUACAO = 'ativo' OR SITUACAO = 'sim') AND SPED = 'SIM' ORDER BY RAZAO");
 
             $query->bindParam(":name", $name, \PDO::PARAM_STR);
 
             if ($query->execute()) {
-                return $query->fetchAll(\PDO::FETCH_ASSOC);
+                if ($query->rowCount() >= 1) {
+                    return $query->fetchAll(\PDO::FETCH_ASSOC);
+                }
+                return null;
             }
 
         } catch (\PDOException $err) {
